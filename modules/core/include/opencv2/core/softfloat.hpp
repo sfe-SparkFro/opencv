@@ -109,6 +109,7 @@ public:
     explicit softfloat( const uint32_t );
     explicit softfloat( const uint64_t );
     explicit softfloat( const int32_t );
+    explicit softfloat( const     int );
     explicit softfloat( const int64_t );
 
 #ifdef CV_INT32_T_IS_LONG_INT
@@ -246,6 +247,7 @@ public:
     explicit softdouble( const uint32_t );
     explicit softdouble( const uint64_t );
     explicit softdouble( const  int32_t );
+    explicit softdouble( const      int );
     explicit softdouble( const  int64_t );
 
 #ifdef CV_INT32_T_IS_LONG_INT
