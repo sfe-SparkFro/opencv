@@ -27,6 +27,7 @@ build/*
 !build/3rdparty
 build/3rdparty/*
 !build/3rdparty/lib
+!build/*.cmake
 node_modules
 CMakeSettings.json
 xcuserdata/
