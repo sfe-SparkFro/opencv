@@ -308,7 +308,7 @@ void hlineSmooth3Naba<uint8_t, ufixedpoint16>(const uint8_t* src, int cn, const 
         {
             int src_idx = borderInterpolate(-1, len, borderType);
             for (int k = 0; k < cn; k++)
-                ((uint16_t*)dst)[k] = saturate_cast<uint16_t>(((uint16_t*)m)[1] * (uint32_t)(src[k]) + ((uint16_t*)m)[0] * ((uint32_t)(src[cn + k]) + (uint32_t)(src[src_idx*cn + k])));
+                ((uint16_t*)dst)[k] = saturate_cast<uint16_t>((uint)(((uint16_t*)m)[1] * (uint32_t)(src[k]) + ((uint16_t*)m)[0] * ((uint32_t)(src[cn + k]) + (uint32_t)(src[src_idx*cn + k]))));
         }
         else
         {
@@ -327,14 +327,14 @@ void hlineSmooth3Naba<uint8_t, ufixedpoint16>(const uint8_t* src, int cn, const 
             v_store((uint16_t*)dst, v_add(v_mul(v_add(  vx_load_expand(src - cn), vx_load_expand(src + cn)),  v_mul0), v_mul(vx_load_expand(src), v_mul1)));
 #endif
         for (; i < lencn; i++, src++, dst++)
-            *((uint16_t*)dst) = saturate_cast<uint16_t>(((uint16_t*)m)[1] * (uint32_t)(src[0]) + ((uint16_t*)m)[0] * ((uint32_t)(src[-cn]) + (uint32_t)(src[cn])));
+            *((uint16_t*)dst) = saturate_cast<uint16_t>((uint)(((uint16_t*)m)[1] * (uint32_t)(src[0]) + ((uint16_t*)m)[0] * ((uint32_t)(src[-cn]) + (uint32_t)(src[cn]))));
 
         // Point that fall right from border
         if (borderType != BORDER_CONSTANT)// If BORDER_CONSTANT out of border values are equal to zero and could be skipped
         {
             int src_idx = (borderInterpolate(len, len, borderType) - (len - 1))*cn;
             for (int k = 0; k < cn; k++)
-                ((uint16_t*)dst)[k] = saturate_cast<uint16_t>(((uint16_t*)m)[1] * (uint32_t)(src[k]) + ((uint16_t*)m)[0] * ((uint32_t)(src[k - cn]) + (uint32_t)(src[src_idx + k])));
+                ((uint16_t*)dst)[k] = saturate_cast<uint16_t>((uint)(((uint16_t*)m)[1] * (uint32_t)(src[k]) + ((uint16_t*)m)[0] * ((uint32_t)(src[k - cn]) + (uint32_t)(src[src_idx + k]))));
         }
         else
         {
@@ -865,8 +865,8 @@ void hlineSmooth5Nabcba<uint8_t, ufixedpoint16>(const uint8_t* src, int cn, cons
             int idxp2 = borderInterpolate(3, len, borderType)*cn;
             for (int k = 0; k < cn; k++)
             {
-                ((uint16_t*)dst)[k] = saturate_cast<uint16_t>(((uint16_t*)m)[1] * ((uint32_t)(src[k + idxm1]) + (uint32_t)(src[k + cn])) + ((uint16_t*)m)[2] * (uint32_t)(src[k]) + ((uint16_t*)m)[0] * ((uint32_t)(src[k + idxp1]) + (uint32_t)(src[k + idxm2])));
-                ((uint16_t*)dst)[k + cn] = saturate_cast<uint16_t>(((uint16_t*)m)[0] * ((uint32_t)(src[k + idxm1]) + (uint32_t)(src[k + idxp2])) + ((uint16_t*)m)[1] * ((uint32_t)(src[k]) + (uint32_t)(src[k + idxp1])) + ((uint16_t*)m)[2] * (uint32_t)(src[k + cn]));
+                ((uint16_t*)dst)[k] = saturate_cast<uint16_t>((uint)(((uint16_t*)m)[1] * ((uint32_t)(src[k + idxm1]) + (uint32_t)(src[k + cn])) + ((uint16_t*)m)[2] * (uint32_t)(src[k]) + ((uint16_t*)m)[0] * ((uint32_t)(src[k + idxp1]) + (uint32_t)(src[k + idxm2]))));
+                ((uint16_t*)dst)[k + cn] = saturate_cast<uint16_t>((uint)(((uint16_t*)m)[0] * ((uint32_t)(src[k + idxm1]) + (uint32_t)(src[k + idxp2])) + ((uint16_t*)m)[1] * ((uint32_t)(src[k]) + (uint32_t)(src[k + idxp1])) + ((uint16_t*)m)[2] * (uint32_t)(src[k + cn])));
             }
         }
     }
@@ -876,7 +876,7 @@ void hlineSmooth5Nabcba<uint8_t, ufixedpoint16>(const uint8_t* src, int cn, cons
             for (int k = 0; k < cn; k++)
             {
                 dst[k] = m[2] * src[k] + m[1] * src[k + cn] + m[0] * src[k + 2 * cn];
-                ((uint16_t*)dst)[k + cn] = saturate_cast<uint16_t>(((uint16_t*)m)[1] * ((uint32_t)(src[k]) + (uint32_t)(src[k + 2 * cn])) + ((uint16_t*)m)[2] * (uint32_t)(src[k + cn]));
+                ((uint16_t*)dst)[k + cn] = saturate_cast<uint16_t>((uint)(((uint16_t*)m)[1] * ((uint32_t)(src[k]) + (uint32_t)(src[k + 2 * cn])) + ((uint16_t*)m)[2] * (uint32_t)(src[k + cn])));
                 dst[k + 2 * cn] = m[0] * src[k] + m[1] * src[k + cn] + m[2] * src[k + 2 * cn];
             }
         else
@@ -887,9 +887,9 @@ void hlineSmooth5Nabcba<uint8_t, ufixedpoint16>(const uint8_t* src, int cn, cons
             int idxp2 = borderInterpolate(4, len, borderType)*cn;
             for (int k = 0; k < cn; k++)
             {
-                ((uint16_t*)dst)[k] = saturate_cast<uint16_t>(((uint16_t*)m)[2] * (uint32_t)(src[k]) + ((uint16_t*)m)[1] * ((uint32_t)(src[k + cn]) + (uint32_t)(src[k + idxm1])) + ((uint16_t*)m)[0] * ((uint32_t)(src[k + 2 * cn]) + (uint32_t)(src[k + idxm2])));
-                ((uint16_t*)dst)[k + cn] = saturate_cast<uint16_t>(((uint16_t*)m)[2] * (uint32_t)(src[k + cn]) + ((uint16_t*)m)[1] * ((uint32_t)(src[k]) + (uint32_t)(src[k + 2 * cn])) + ((uint16_t*)m)[0] * ((uint32_t)(src[k + idxm1]) + (uint32_t)(src[k + idxp1])));
-                ((uint16_t*)dst)[k + 2 * cn] = saturate_cast<uint16_t>(((uint16_t*)m)[0] * ((uint32_t)(src[k]) + (uint32_t)(src[k + idxp2])) + ((uint16_t*)m)[1] * ((uint32_t)(src[k + cn]) + (uint32_t)(src[k + idxp1])) + ((uint16_t*)m)[2] * (uint32_t)(src[k + 2 * cn]));
+                ((uint16_t*)dst)[k] = saturate_cast<uint16_t>((uint)(((uint16_t*)m)[2] * (uint32_t)(src[k]) + ((uint16_t*)m)[1] * ((uint32_t)(src[k + cn]) + (uint32_t)(src[k + idxm1])) + ((uint16_t*)m)[0] * ((uint32_t)(src[k + 2 * cn]) + (uint32_t)(src[k + idxm2]))));
+                ((uint16_t*)dst)[k + cn] = saturate_cast<uint16_t>((uint)(((uint16_t*)m)[2] * (uint32_t)(src[k + cn]) + ((uint16_t*)m)[1] * ((uint32_t)(src[k]) + (uint32_t)(src[k + 2 * cn])) + ((uint16_t*)m)[0] * ((uint32_t)(src[k + idxm1]) + (uint32_t)(src[k + idxp1]))));
+                ((uint16_t*)dst)[k + 2 * cn] = saturate_cast<uint16_t>((uint)(((uint16_t*)m)[0] * ((uint32_t)(src[k]) + (uint32_t)(src[k + idxp2])) + ((uint16_t*)m)[1] * ((uint32_t)(src[k + cn]) + (uint32_t)(src[k + idxp1])) + ((uint16_t*)m)[2] * (uint32_t)(src[k + 2 * cn])));
             }
         }
     }
@@ -902,8 +902,8 @@ void hlineSmooth5Nabcba<uint8_t, ufixedpoint16>(const uint8_t* src, int cn, cons
             int idxm1 = borderInterpolate(-1, len, borderType)*cn;
             for (int k = 0; k < cn; k++)
             {
-                ((uint16_t*)dst)[k] = saturate_cast<uint16_t>(((uint16_t*)m)[2] * (uint32_t)(src[k]) + ((uint16_t*)m)[1] * ((uint32_t)(src[cn + k]) + (uint32_t)(src[idxm1 + k])) + ((uint16_t*)m)[0] * ((uint32_t)(src[2 * cn + k]) + (uint32_t)(src[idxm2 + k])));
-                ((uint16_t*)dst)[k + cn] = saturate_cast<uint16_t>(((uint16_t*)m)[1] * ((uint32_t)(src[k]) + (uint32_t)(src[2 * cn + k])) + ((uint16_t*)m)[2] * (uint32_t)(src[cn + k]) + ((uint16_t*)m)[0] * ((uint32_t)(src[3 * cn + k]) + (uint32_t)(src[idxm1 + k])));
+                ((uint16_t*)dst)[k] = saturate_cast<uint16_t>((uint)(((uint16_t*)m)[2] * (uint32_t)(src[k]) + ((uint16_t*)m)[1] * ((uint32_t)(src[cn + k]) + (uint32_t)(src[idxm1 + k])) + ((uint16_t*)m)[0] * ((uint32_t)(src[2 * cn + k]) + (uint32_t)(src[idxm2 + k]))));
+                ((uint16_t*)dst)[k + cn] = saturate_cast<uint16_t>((uint)(((uint16_t*)m)[1] * ((uint32_t)(src[k]) + (uint32_t)(src[2 * cn + k])) + ((uint16_t*)m)[2] * (uint32_t)(src[cn + k]) + ((uint16_t*)m)[0] * ((uint32_t)(src[3 * cn + k]) + (uint32_t)(src[idxm1 + k]))));
             }
         }
         else
@@ -911,7 +911,7 @@ void hlineSmooth5Nabcba<uint8_t, ufixedpoint16>(const uint8_t* src, int cn, cons
             for (int k = 0; k < cn; k++)
             {
                 dst[k] = m[2] * src[k] + m[1] * src[cn + k] + m[0] * src[2 * cn + k];
-                ((uint16_t*)dst)[k + cn] = saturate_cast<uint16_t>(((uint16_t*)m)[1] * ((uint32_t)(src[k]) + (uint32_t)(src[2 * cn + k])) + ((uint16_t*)m)[2] * (uint32_t)(src[cn + k]) + ((uint16_t*)m)[0] * (uint32_t)(src[3 * cn + k]));
+                ((uint16_t*)dst)[k + cn] = saturate_cast<uint16_t>((uint)(((uint16_t*)m)[1] * ((uint32_t)(src[k]) + (uint32_t)(src[2 * cn + k])) + ((uint16_t*)m)[2] * (uint32_t)(src[cn + k]) + ((uint16_t*)m)[0] * (uint32_t)(src[3 * cn + k])));
             }
         }
 
@@ -927,7 +927,7 @@ void hlineSmooth5Nabcba<uint8_t, ufixedpoint16>(const uint8_t* src, int cn, cons
             v_store((uint16_t*)dst, v_add(v_add(v_mul(v_add(vx_load_expand(src - 2 * cn), vx_load_expand(src + 2 * cn)), v_mul0), v_mul(v_add(vx_load_expand(src - cn), vx_load_expand(src + cn)), v_mul1)), v_mul(vx_load_expand(src), v_mul2)));
 #endif
         for (; i < lencn; i++, src++, dst++)
-            *((uint16_t*)dst) = saturate_cast<uint16_t>(((uint16_t*)m)[0] * ((uint32_t)(src[-2 * cn]) + (uint32_t)(src[2 * cn])) + ((uint16_t*)m)[1] * ((uint32_t)(src[-cn]) + (uint32_t)(src[cn])) + ((uint16_t*)m)[2] * (uint32_t)(src[0]));
+            *((uint16_t*)dst) = saturate_cast<uint16_t>((uint)(((uint16_t*)m)[0] * ((uint32_t)(src[-2 * cn]) + (uint32_t)(src[2 * cn])) + ((uint16_t*)m)[1] * ((uint32_t)(src[-cn]) + (uint32_t)(src[cn])) + ((uint16_t*)m)[2] * (uint32_t)(src[0])));
 
         // Points that fall right from border
         if (borderType != BORDER_CONSTANT)// If BORDER_CONSTANT out of border values are equal to zero and could be skipped
@@ -936,15 +936,15 @@ void hlineSmooth5Nabcba<uint8_t, ufixedpoint16>(const uint8_t* src, int cn, cons
             int idxp2 = (borderInterpolate(len + 1, len, borderType) - (len - 2))*cn;
             for (int k = 0; k < cn; k++)
             {
-                ((uint16_t*)dst)[k] = saturate_cast<uint16_t>(((uint16_t*)m)[0] * ((uint32_t)(src[k - 2 * cn]) + (uint32_t)(src[idxp1 + k])) + ((uint16_t*)m)[1] * ((uint32_t)(src[k - cn]) + (uint32_t)(src[k + cn])) + ((uint16_t*)m)[2] * (uint32_t)(src[k]));
-                ((uint16_t*)dst)[k + cn] = saturate_cast<uint16_t>(((uint16_t*)m)[0] * ((uint32_t)(src[k - cn]) + (uint32_t)(src[idxp2 + k])) + ((uint16_t*)m)[1] * ((uint32_t)(src[k]) + (uint32_t)(src[idxp1 + k])) + ((uint16_t*)m)[2] * (uint32_t)(src[k + cn]));
+                ((uint16_t*)dst)[k] = saturate_cast<uint16_t>((uint)(((uint16_t*)m)[0] * ((uint32_t)(src[k - 2 * cn]) + (uint32_t)(src[idxp1 + k])) + ((uint16_t*)m)[1] * ((uint32_t)(src[k - cn]) + (uint32_t)(src[k + cn])) + ((uint16_t*)m)[2] * (uint32_t)(src[k])));
+                ((uint16_t*)dst)[k + cn] = saturate_cast<uint16_t>((uint)(((uint16_t*)m)[0] * ((uint32_t)(src[k - cn]) + (uint32_t)(src[idxp2 + k])) + ((uint16_t*)m)[1] * ((uint32_t)(src[k]) + (uint32_t)(src[idxp1 + k])) + ((uint16_t*)m)[2] * (uint32_t)(src[k + cn])));
             }
         }
         else
         {
             for (int k = 0; k < cn; k++)
             {
-                ((uint16_t*)dst)[k] = saturate_cast<uint16_t>(((uint16_t*)m)[0] * (uint32_t)(src[k - 2 * cn]) + ((uint16_t*)m)[1] * ((uint32_t)(src[k - cn]) + (uint32_t)(src[k + cn])) + ((uint16_t*)m)[2] * (uint32_t)(src[k]));
+                ((uint16_t*)dst)[k] = saturate_cast<uint16_t>((uint)(((uint16_t*)m)[0] * (uint32_t)(src[k - 2 * cn]) + ((uint16_t*)m)[1] * ((uint32_t)(src[k - cn]) + (uint32_t)(src[k + cn])) + ((uint16_t*)m)[2] * (uint32_t)(src[k])));
                 dst[k + cn] = m[0] * src[k - cn] + m[1] * src[k] + m[2] * src[k + cn];
             }
         }
