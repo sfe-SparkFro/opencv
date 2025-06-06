@@ -46,7 +46,8 @@ CMAKE_ARGS += -DCV_ENABLE_INTRINSICS=OFF
 CMAKE_ARGS += -DCV_TRACE=OFF
 CMAKE_ARGS += -DOPENCV_ENABLE_MEMALIGN=OFF
 
-CMAKE_ARGS += -DCMAKE_TOOLCHAIN_FILE=~/micropython-opencv/micropython/lib/pico-sdk/cmake/preload/toolchains/pico_arm_cortex_m33_gcc.cmake
+CURRENT_DIR = $(shell pwd)
+CMAKE_ARGS += -DCMAKE_TOOLCHAIN_FILE=$(CURRENT_DIR)/platforms/rp2350/rp2350.toolchain.cmake
 CMAKE_ARGS += -DOPENCV_DISABLE_THREAD_SUPPORT=ON
 
 # Build OpenCV
