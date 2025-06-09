@@ -98,7 +98,6 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/dryw/micropython-opencv/src/opencv/build/3rdparty/zlib/cmake_install.cmake")
-  include("/home/dryw/micropython-opencv/src/opencv/build/3rdparty/openjpeg/cmake_install.cmake")
   include("/home/dryw/micropython-opencv/src/opencv/build/3rdparty/libpng/cmake_install.cmake")
   include("/home/dryw/micropython-opencv/src/opencv/build/include/cmake_install.cmake")
   include("/home/dryw/micropython-opencv/src/opencv/build/modules/.firstpass/calib3d/cmake_install.cmake")

@@ -19,7 +19,7 @@ set(CMAKE_IMPORT_FILE_VERSION 1)
 set(_cmake_targets_defined "")
 set(_cmake_targets_not_defined "")
 set(_cmake_expected_targets "")
-foreach(_cmake_expected_target IN ITEMS zlib libopenjp2 libpng ade opencv_core opencv_imgproc opencv_imgcodecs)
+foreach(_cmake_expected_target IN ITEMS zlib libpng ade opencv_core opencv_imgproc opencv_imgcodecs)
   list(APPEND _cmake_expected_targets "${_cmake_expected_target}")
   if(TARGET "${_cmake_expected_target}")
     list(APPEND _cmake_targets_defined "${_cmake_expected_target}")
@@ -48,13 +48,6 @@ unset(_cmake_expected_targets)
 
 # Create imported target zlib
 add_library(zlib STATIC IMPORTED)
-
-# Create imported target libopenjp2
-add_library(libopenjp2 STATIC IMPORTED)
-
-set_target_properties(libopenjp2 PROPERTIES
-  INTERFACE_COMPILE_DEFINITIONS "OPJ_STATIC"
-)
 
 # Create imported target libpng
 add_library(libpng STATIC IMPORTED)
@@ -89,7 +82,7 @@ set_target_properties(opencv_imgproc PROPERTIES
 add_library(opencv_imgcodecs STATIC IMPORTED)
 
 set_target_properties(opencv_imgcodecs PROPERTIES
-  INTERFACE_LINK_LIBRARIES "opencv_core;opencv_imgproc;opencv_core;opencv_imgproc;\$<LINK_ONLY:libpng>;\$<LINK_ONLY:libopenjp2>;\$<LINK_ONLY:zlib>"
+  INTERFACE_LINK_LIBRARIES "opencv_core;opencv_imgproc;opencv_core;opencv_imgproc;\$<LINK_ONLY:libpng>;\$<LINK_ONLY:zlib>"
 )
 
 # Import target "zlib" for configuration "Release"
@@ -97,13 +90,6 @@ set_property(TARGET zlib APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
 set_target_properties(zlib PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "C"
   IMPORTED_LOCATION_RELEASE "/home/dryw/micropython-opencv/src/opencv/build/3rdparty/lib/libzlib.a"
-  )
-
-# Import target "libopenjp2" for configuration "Release"
-set_property(TARGET libopenjp2 APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
-set_target_properties(libopenjp2 PROPERTIES
-  IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "C"
-  IMPORTED_LOCATION_RELEASE "/home/dryw/micropython-opencv/src/opencv/build/3rdparty/lib/liblibopenjp2.a"
   )
 
 # Import target "libpng" for configuration "Release"
