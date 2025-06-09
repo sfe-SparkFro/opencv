@@ -1,4 +1,9 @@
 # Define PICO_SDK_PATH in your environment before running this script
+if(NOT DEFINED ENV{PICO_SDK_PATH})
+    message(FATAL_ERROR "PICO_SDK_PATH environment variable is not set. Please define it before running this script.")
+endif()
+
+# Include the RP2350 toolchain file
 include("$ENV{PICO_SDK_PATH}/cmake/preload/toolchains/pico_arm_cortex_m33_gcc.cmake")
 
 # Include the common embedded OpenCV settings
