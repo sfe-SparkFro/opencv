@@ -9,7 +9,7 @@ CMAKE_ARGS += -DBUILD_LIST=core,imgproc,imgcodecs
 
 # Generic build
 all:
-	mkdir -p build && cd build && cmake -S .. -B . -DPICO_BUILD_DOCS=0 -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_FILE} ${CMAKE_ARGS} && make -f Makefile $(MAKEFLAGS) $(MAKE_ARGS)
+	mkdir -p build && cmake -S . -B build -DPICO_BUILD_DOCS=0 -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_FILE} ${CMAKE_ARGS} && make -C build -f Makefile $(MAKEFLAGS) $(MAKE_ARGS)
 
 # Clean the OpenCV build
 clean:
