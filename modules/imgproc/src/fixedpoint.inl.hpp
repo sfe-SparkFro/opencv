@@ -241,7 +241,7 @@ public:
     CV_ALWAYS_INLINE ufixedpoint32(const ufixedpoint32& v) { val = v.val; }
     CV_ALWAYS_INLINE ufixedpoint32(const uint8_t& _val) { val = ((uint32_t)_val) << fixedShift; }
     CV_ALWAYS_INLINE ufixedpoint32(const uint16_t& _val) { val = ((uint32_t)_val) << fixedShift; }
-    CV_ALWAYS_INLINE ufixedpoint32(const uint& _val) { val = ((uint32_t)_val) << fixedShift; }
+    CV_ALWAYS_INLINE ufixedpoint32(const unsigned int& _val) { val = ((uint32_t)_val) << fixedShift; }
     CV_ALWAYS_INLINE ufixedpoint32(const cv::softdouble& _val) { val = _val.getSign() ? 0 : (uint32_t)cvRound(_val * cv::softdouble((1 << fixedShift))); }
     CV_ALWAYS_INLINE ufixedpoint32& operator = (const uint8_t& _val) { val = ((uint32_t)_val) << fixedShift; return *this; }
     CV_ALWAYS_INLINE ufixedpoint32& operator = (const uint16_t& _val) { val = ((uint32_t)_val) << fixedShift; return *this; }
