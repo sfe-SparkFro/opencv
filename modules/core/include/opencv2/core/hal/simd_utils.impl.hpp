@@ -35,7 +35,7 @@ template<> inline Type2Vec128_Traits< uchar>::vec_type v_setall< uchar>(const  u
 template<> inline Type2Vec128_Traits< schar>::vec_type v_setall< schar>(const  schar& a) { return v_setall_s8(a); }
 template<> inline Type2Vec128_Traits<ushort>::vec_type v_setall<ushort>(const ushort& a) { return v_setall_u16(a); }
 template<> inline Type2Vec128_Traits< short>::vec_type v_setall< short>(const  short& a) { return v_setall_s16(a); }
-// template<> inline Type2Vec128_Traits<  uint>::vec_type v_setall<  uint>(const   uint& a) { return v_setall_u32(a); }
+template<> inline Type2Vec128_Traits<  uint>::vec_type v_setall<  uint>(const   uint& a) { return v_setall_u32(a); }
 template<> inline Type2Vec128_Traits<   int>::vec_type v_setall<   int>(const    int& a) { return v_setall_s32(a); }
 template<> inline Type2Vec128_Traits<uint64>::vec_type v_setall<uint64>(const uint64& a) { return v_setall_u64(a); }
 template<> inline Type2Vec128_Traits< int64>::vec_type v_setall< int64>(const  int64& a) { return v_setall_s64(a); }

@@ -21,13 +21,7 @@ bin/
 *.suo
 *.log
 *.tlog
-build/*
-!build/opencv2
-!build/lib
-!build/3rdparty
-build/3rdparty/*
-!build/3rdparty/lib
-!build/*.cmake
+build
 node_modules
 CMakeSettings.json
 xcuserdata/
